@@ -61,12 +61,18 @@ public class CustomerController {
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
     	
-    	// get the customer from the database
+    	// get the customer from the database (through Service)
     	Customer theCustomer = customerService.getCustomers(theId);
     	
     	// set customer as a model attribute to pre-populate the form
     	theModel.addAttribute("customer", theCustomer);
     	// send over to our form
-    	return "customer-form";
+    	return "customer-form";  
+    }
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") int theId) {
+    	// delete the customer
+    	customerService.deleteCustomer(theId);
+    	return "redirect:/customer/list";
     }
 }
